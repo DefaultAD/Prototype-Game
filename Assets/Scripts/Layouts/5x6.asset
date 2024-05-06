@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: 5x6
   m_EditorClassIdentifier: 
   Name: 5x6
+  cardAmount: 30
   cellXSize: 75
   cellYSize: 60
-  columns: 6
+  columns: 5

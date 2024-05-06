@@ -7,6 +7,8 @@ public class CardLayout : ScriptableObject
 {
     public string Name;
 
+    public int cardAmount;
+
     public int cellXSize;
     public int cellYSize;
 

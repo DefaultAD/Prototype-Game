@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: 3x4
   m_EditorClassIdentifier: 
   Name: 3x4
+  cardAmount: 12
   cellXSize: 110
   cellYSize: 95
   columns: 3

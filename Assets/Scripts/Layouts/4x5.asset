@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: 4x5
   m_EditorClassIdentifier: 
   Name: 4x5
+  cardAmount: 20
   cellXSize: 90
   cellYSize: 75
   columns: 4

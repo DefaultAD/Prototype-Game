@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 2x2
   m_EditorClassIdentifier: 
   Name: 2x2
+  cardAmount: 4
   cellXSize: 200
   cellYSize: 165
   columns: 2
-  rows: 2
