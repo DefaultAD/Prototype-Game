@@ -40,5 +40,6 @@ public class StartGame : MonoBehaviour
     public void PlayGame()
     {
         StartCoroutine(gameManager.ShowLoadingScreen());
+        gameManager.ShowGameUI();
     }    
 }

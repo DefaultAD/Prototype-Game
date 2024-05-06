@@ -31,4 +31,16 @@ public class GameManager : MonoBehaviour
         //Deactivate Loading Screen.
         loadingScreen.SetActive(false);
     }
+
+    public void ShowGameUI()
+    {
+        mainMenu.SetActive(false);
+        gameScreen.SetActive(true);
+    }
+
+    public void ShowMainMenuUI()
+    {
+        mainMenu.SetActive(true);
+        gameScreen.SetActive(false);
+    }
 }
