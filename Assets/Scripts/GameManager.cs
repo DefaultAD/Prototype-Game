@@ -7,25 +7,31 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public GameObject loadingScreen;
+    public GameObject continueScreen;
     public GameObject mainMenu;
     public GameObject gameScreen;
     public GameObject gameOverScreen;
 
     public GameObject homeButton;
 
-    public TextMeshProUGUI score;
-    public TextMeshProUGUI levelScore;
-    public TextMeshProUGUI guessAmount;
+    public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI comboText;
+    public TextMeshProUGUI levelScoreText;
+    public TextMeshProUGUI guessAmountText;
 
     public int totalScore;
+    public bool isPlaying;
 
     // Start is called before the first frame update
     void Start()
     {
+        //continueScreen.SetActive(true);
+
         StartCoroutine(ShowLoadingScreen());
 
         totalScore = PlayerPrefs.GetInt("Score");
-        score.text = "Score : " + totalScore.ToString();
+        scoreText.text = "Score : " + totalScore.ToString();
+        comboText.text = "";
     }
 
     public IEnumerator ShowLoadingScreen()
@@ -42,25 +48,32 @@ public class GameManager : MonoBehaviour
 
     public void ShowGameUI()
     {
+        isPlaying = true;
         mainMenu.SetActive(false);
         gameScreen.SetActive(true);
         homeButton.SetActive(true);
+        continueScreen.SetActive(false);
     }
 
     public void ShowMainMenuUI()
     {
+        isPlaying = false;
+        comboText.text = "";
         mainMenu.SetActive(true);
         gameScreen.SetActive(false);
         homeButton.SetActive(false);
+        continueScreen.SetActive(false);
     }
 
     public void ShowGameOverUI()
     {
+        isPlaying = false;
         StartCoroutine(GameOver());
     }
 
     public IEnumerator GameOver()
     {
+        isPlaying = false;
         //Waits for 0.25 seconds.
         yield return new WaitForSeconds(0.25f);
 

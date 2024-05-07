@@ -30,8 +30,6 @@ public class CardPicker : MonoBehaviour
 
     private int gameScoreCombo;
 
-    int timer;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -47,6 +45,14 @@ public class CardPicker : MonoBehaviour
         //else
         gameScore = 0;
         combo = 1;
+    }
+
+    public void Update()
+    {
+        if (gameManager.isPlaying == true)
+        {
+            gameManager.comboText.text = "COMBO : x" + combo.ToString();
+        }
     }
 
     public void AddListeners()
@@ -96,6 +102,9 @@ public class CardPicker : MonoBehaviour
 
             audioController.MatchCardsAudio();
 
+            firstGuess = false;
+            secondGuess = false;
+
             yield return new WaitForSeconds(0.5f);
 
             cardSpawner.cardList[lastFirstIndex].interactable = false;
@@ -103,9 +112,6 @@ public class CardPicker : MonoBehaviour
 
             cardSpawner.cardList[lastFirstIndex].image.color = new Color(0,0,0,0);
             cardSpawner.cardList[lastSecondIndex].image.color = new Color(0, 0, 0, 0);
-
-            firstGuess = false;
-            secondGuess = false;
 
             CheckIfComplete();
         }
@@ -141,8 +147,8 @@ public class CardPicker : MonoBehaviour
 
             gameManager.ShowGameOverUI();
 
-            gameManager.levelScore.text = "+" + gameScoreCombo;
-            gameManager.guessAmount.text = "It took " + guessCount + " guesses";
+            gameManager.levelScoreText.text = " Score : " + totalScore +  " + " + gameScoreCombo;
+            gameManager.guessAmountText.text = "It took " + guessCount + " guesses";
         }
     }
 }
