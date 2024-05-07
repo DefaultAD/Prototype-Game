@@ -9,6 +9,7 @@ public class CardPicker : MonoBehaviour
 {
     private CardSpawner cardSpawner;
     private GameManager gameManager;
+    private AudioController audioController;
 
     private bool firstGuess;
     private bool secondGuess;
@@ -19,8 +20,6 @@ public class CardPicker : MonoBehaviour
 
     private int firstGuessIndex;
     private int secondGuessIndex;
-    private bool firstCardAnim;
-    private bool secondCardAnim;
 
     private string firstGuessCard;
     private string secondGuessCard;
@@ -38,6 +37,7 @@ public class CardPicker : MonoBehaviour
     {
         cardSpawner = GetComponent<CardSpawner>();
         gameManager = GetComponent<GameManager>();
+        audioController = GetComponent<AudioController>();
 
         totalScore = PlayerPrefs.GetInt("Score");
         //if (!newGame)
@@ -64,7 +64,8 @@ public class CardPicker : MonoBehaviour
             firstGuess = true;
             firstGuessIndex = int.Parse(UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name);
             firstGuessCard = cardSpawner.spritesList[firstGuessIndex].name;
-            cardSpawner.cardList[firstGuessIndex].image.sprite = cardSpawner.spritesList[firstGuessIndex];           
+            cardSpawner.cardList[firstGuessIndex].image.sprite = cardSpawner.spritesList[firstGuessIndex];
+            audioController.FlipCardAudio();
         }
         else if (!secondGuess)
         {
@@ -72,7 +73,8 @@ public class CardPicker : MonoBehaviour
             secondGuessIndex = int.Parse(UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name);
             secondGuessCard = cardSpawner.spritesList[secondGuessIndex].name;
             cardSpawner.cardList[secondGuessIndex].image.sprite = cardSpawner.spritesList[secondGuessIndex];
-            
+            audioController.FlipCardAudio();
+
             guessCount++;
             StartCoroutine(CheckMatch());            
         }        
@@ -91,6 +93,8 @@ public class CardPicker : MonoBehaviour
             gameScore++;
 
             gameScoreCombo = gameScore * combo;
+
+            audioController.MatchCardsAudio();
 
             yield return new WaitForSeconds(0.5f);
 
@@ -112,11 +116,12 @@ public class CardPicker : MonoBehaviour
             firstGuess = false;
             secondGuess = false;
 
+            audioController.MismatchCardsAudio();
+
             yield return new WaitForSeconds(0.5f);
 
             cardSpawner.cardList[lastFirstIndex].image.sprite = cardSpawner.backgroundImage;
             cardSpawner.cardList[lastSecondIndex].image.sprite = cardSpawner.backgroundImage;
-
         }
 
         yield return new WaitForSeconds(0.01f);
@@ -132,7 +137,10 @@ public class CardPicker : MonoBehaviour
 
         if (guessCountCorrect == guesses) 
         {
+            audioController.GameOverAudio();
+
             gameManager.ShowGameOverUI();
+
             gameManager.levelScore.text = "+" + gameScoreCombo;
             gameManager.guessAmount.text = "It took " + guessCount + " guesses";
         }
