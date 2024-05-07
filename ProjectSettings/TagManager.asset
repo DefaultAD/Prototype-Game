@@ -8,6 +8,7 @@ TagManager:
   - MainMenu
   - GameScreen
   - Card
+  - GameOverScreen
   layers:
   - Default
   - TransparentFX

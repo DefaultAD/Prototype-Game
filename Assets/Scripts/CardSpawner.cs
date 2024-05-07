@@ -10,8 +10,8 @@ public class CardSpawner : MonoBehaviour
 
     public GameObject cardPrefab;
 
-    [HideInInspector] public List<Button> cardList = new List<Button>();
-    [HideInInspector] public List<Sprite> spritesList = new List<Sprite>();
+    public List<Button> cardList = new List<Button>();
+    public List<Sprite> spritesList = new List<Sprite>();
 
     public Sprite backgroundImage;
     public Sprite[] cardImages;
