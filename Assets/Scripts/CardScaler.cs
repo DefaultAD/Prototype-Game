@@ -1,30 +1,29 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CardScaler : MonoBehaviour
 {
+    private CardSpawner cardSpawner;
+
     public GridLayoutGroup gridLayout;
-    public Transform gridPanel;
 
-    public GameObject cardPrefab;
-
-    public int difficulty;
-    public bool spawn = false;
+    [HideInInspector] public int difficulty;
 
     public CardLayout[] layouts;
-    public CardLayout cardLayout;
+    [HideInInspector] public CardLayout cardLayout;
 
-    public int cards;
-    public int spawnedCards;
-
-    public int columnCount;
-    public int x;
-    public int y;
+    [HideInInspector] public int columnCount;
+    [HideInInspector] public int x;
+    [HideInInspector] public int y;
             
     // Start is called before the first frame update
     void Start()
     {
         gridLayout.GetComponent<GridLayoutGroup>();
+        cardSpawner = GetComponent<CardSpawner>();
     }
 
     // Update is called once per frame
@@ -32,12 +31,12 @@ public class CardScaler : MonoBehaviour
     {
         //difficulty = PlayerPrefs.GetInt("Difficulty");
         
-        if (spawn)
+        if (cardSpawner.spawn)
         {
             cardLayout = layouts[difficulty - 1];
-            if (cards == 0)
+            if (cardSpawner.cards == 0)
             {
-                cards = cardLayout.cardAmount;
+                cardSpawner.cards = cardLayout.cardAmount;
                 x = cardLayout.cellXSize;
                 y = cardLayout.cellYSize;
                 columnCount = cardLayout.columns;
@@ -45,19 +44,8 @@ public class CardScaler : MonoBehaviour
                 gridLayout.constraintCount = columnCount;
 
                 gridLayout.cellSize = new Vector2(x, y);
-
             }
-            if (spawnedCards <= cards - 1)
-            {
-                Instantiate(cardPrefab, gridPanel.position, gridPanel.rotation, gridPanel);
-                spawnedCards++;
-            }
+            cardSpawner.SpawnCards();
         }
-        
-            
-        //while (spawnedCards < cards)
-        //{
-        //    //instantiate(Prefab, Spawnpoint.position, Spawnpoint.rotation, Spawnpoint)
-        //}
     }
 }

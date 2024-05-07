@@ -7,6 +7,7 @@ public class StartGame : MonoBehaviour
 {
     private GameManager gameManager;
     private CardScaler cardScaler;
+    private CardSpawner cardSpawner;
 
     public int currentDifficulty;
     
@@ -14,24 +15,13 @@ public class StartGame : MonoBehaviour
     {
         gameManager = GetComponent<GameManager>();
         cardScaler = GetComponent<CardScaler>();
+        cardSpawner = GetComponent<CardSpawner>();
 
         currentDifficulty = PlayerPrefs.GetInt("Difficulty");
         if (currentDifficulty == 0)
         {
             currentDifficulty = 2;
         }
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void SelectedDifficulty(int difficulty)
@@ -43,7 +33,7 @@ public class StartGame : MonoBehaviour
     public void PlayGame()
     {
         cardScaler.difficulty = PlayerPrefs.GetInt("Difficulty");
-        cardScaler.spawn = true;
+        cardSpawner.spawn = true;
         StartCoroutine(gameManager.ShowLoadingScreen());
         gameManager.ShowGameUI();
     }    
